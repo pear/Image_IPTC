@@ -19,11 +19,11 @@
  </maintainers>
 
  <release>
-  <version>1.0.0</version>
-  <date>2003-05-16</date>
+  <version>1.0.1</version>
+  <date>2003-05-19</date>
   <state>stable</state>
   <notes>
-   This is the first release.
+   Added public method for ensuring that iptcparse() was successful via the isValid() method.
   </notes>
   <filelist>
    <dir name="/" baseinstalldir="Image">
