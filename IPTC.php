@@ -51,8 +51,8 @@ class Image_IPTC
 
     /**
     * @var boolean
-    * The state of the iptcparse() function. If the parsing was successful,
-    * this value will be set to true.
+    * The state of the getimagesize() function. If the parsing was successful,
+    * this value will be set to true if the APP header data could be obtained.
     * @see isValid()
     * @access private
     */
@@ -75,14 +75,12 @@ class Image_IPTC
            if (@getimagesize($this->_sFilename, $aAPP) && !empty($aAPP)) {
 
                $this->_aIPTC = @iptcparse($aAPP['APP13']);
-               if (!empty($this->_aIPTC)) {
-
-                  $this->_bIPTCParse = true;
-
-               }
+               $this->_bIPTCParse = true;
 
            }
+
         }
+
     }
 
     /**
@@ -92,7 +90,7 @@ class Image_IPTC
     * get IPTC fields.
     *
     * @return boolean
-    * Returns true of the iptcparse() function successfully extracted IPTC
+    * Returns true if the getimagesize() function successfully extracted APP
     * information from the supplied file
     *
     * @access public
