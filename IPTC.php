@@ -50,6 +50,15 @@ class Image_IPTC
     var $_aIPTC = array();
 
     /**
+    * @var boolean
+    * The state of the iptcparse() function. If the parsing was successful,
+    * this value will be set to true.
+    * @see isValid()
+    * @access private
+    */
+    var $_bIPTCParse = false;
+
+    /**
     * Constructor
     *
     * @param string
@@ -65,10 +74,32 @@ class Image_IPTC
 
            if (@getimagesize($this->_sFilename, $aAPP) && !empty($aAPP)) {
 
-               $this->_aIPTC = iptcparse($aAPP['APP13']);
+               $this->_aIPTC = @iptcparse($aAPP['APP13']);
+               if (!empty($this->_aIPTC)) {
+
+                  $this->_bIPTCParse = true;
+
+               }
 
            }
         }
+    }
+
+    /**
+    * Returns the status of IPTC parsing during instantiation
+    *
+    * You'll normally want to call this method before trying to change or
+    * get IPTC fields.
+    *
+    * @return boolean
+    * Returns true of the iptcparse() function successfully extracted IPTC
+    * information from the supplied file
+    *
+    * @access public
+    */
+    function isValid()
+    {
+        return $this->_bIPTCParse;
     }
 
     /**
