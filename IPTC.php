@@ -157,7 +157,7 @@ class Image_IPTC
     {
         $sTagName = $this->_lookupTag($xTag);
 
-        if (is_array($this->_aIPTC[$sTagName])) {
+        if (isset($this->_aIPTC[$sTagName]) && is_array($this->_aIPTC[$sTagName])) {
 
             if ($nBlock < 0) {
 
