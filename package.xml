@@ -23,7 +23,7 @@
   <date>2003-05-19</date>
   <state>stable</state>
   <notes>
-   Added public method for ensuring that iptcparse() was successful via the isValid() method.
+   Added public method for ensuring that getimagesize() was successful and extracted APP header data via the isValid() method.
   </notes>
   <filelist>
    <dir name="/" baseinstalldir="Image">
