@@ -18,42 +18,6 @@
 //
 // $Id$
 
-// The following constants can be used directly with this class to access the
-// various elements. Note that these values can be used directly, but to make
-// code a bit more clear, use the constants instead.
-
-define('IMAGE_IPTC_OBJECT_NAME', 005);
-define('IMAGE_IPTC_EDIT_STATUS', 007);
-define('IMAGE_IPTC_PRIORITY', 010);
-define('IMAGE_IPTC_CATEGORY', 015);
-define('IMAGE_IPTC_SUPPLEMENTARY_CATEGORY', 020);
-define('IMAGE_IPTC_FIXTURE_IDENTIFIER', 022);
-define('IMAGE_IPTC_KEYWORDS', 025);
-define('IMAGE_IPTC_RELEASE_DATE', 030);
-define('IMAGE_IPTC_RELEASE_TIME', 035);
-define('IMAGE_IPTC_SPECIAL_INSTRUCTIONS', 040);
-define('IMAGE_IPTC_REFERENCE_SERVICE', 045);
-define('IMAGE_IPTC_REFERENCE_DATE', 047);
-define('IMAGE_IPTC_REFERENCE_NUMBER', 050);
-define('IMAGE_IPTC_CREATED_DATE', 055);
-define('IMAGE_IPTC_CREATED_TIME', 060);
-define('IMAGE_IPTC_ORIGINATING_PROGRAM', 065);
-define('IMAGE_IPTC_PROGRA_VERSION', 070);
-define('IMAGE_IPTC_OBJECT_CYCLE', 075);
-define('IMAGE_IPTC_BYLINE', 080);
-define('IMAGE_IPTC_BYLINE_TITLE', 085);
-define('IMAGE_IPTC_CITY', 090);
-define('IMAGE_IPTC_PROVINCE_STATE', 095);
-define('IMAGE_IPTC_COUNTRY_CODE', 100);
-define('IMAGE_IPTC_COUNTRY', 101);
-define('IMAGE_IPTC_ORIGINAL_TRANSMISSION_REFERENCE', 103);
-define('IMAGE_IPTC_HEADLINE', 105);
-define('IMAGE_IPTC_CREDIT', 110);
-define('IMAGE_IPTC_SOURCE', 115);
-define('IMAGE_IPTC_COPYRIGHT_STRING', 116);
-define('IMAGE_IPTC_CAPTION', 120);
-define('IMAGE_IPTC_LOCAL_CAPTION', 121);
-
 /**
 * An abstraction layer for working with IPTC fields
 *
@@ -110,8 +74,8 @@ class Image_IPTC
     /**
     * Set IPTC fields to a specific value or values
     *
-    * @param integer
-    * The field (by number) of the IPTC data you wish to update
+    * @param mixed
+    * The field (by number or string) of the IPTC data you wish to update
     *
     * @param mixed
     * If the value supplied is scalar, then the block assigned will be set to
@@ -120,15 +84,16 @@ class Image_IPTC
     *
     * @param integer
     * The block to update. Most tags only use the 0th block, but certain tags,
-    * like the IMAGE_IPTC_KEYWORDS tag, use a list of values. If set to a
-    * negative value, the entire tag block will be replaced by the value of
-    * the second parameter.
+    * like the "keywords" tag, use a list of values. If set to a negative
+    * value, the entire tag block will be replaced by the value of the second
+    * parameter.
     *
     * @access public
     */
-    function setTag( $nTagName, $xValue, $nBlock = 0 )
+    function setTag( $xTag, $xValue, $nBlock = 0 )
     {
-        $sTagName = sprintf('2#%03d', $nTagName);
+        $sTagName = $this->_lookupTag($xTag);
+
         if (($nBlock < 0) || is_array($xValue)) {
 
             $this->_aIPTC[$sTagName] = $xValue;
@@ -147,20 +112,22 @@ class Image_IPTC
     * If the requested tag exists, a scalar value will be returned. If the block
     * is negative, the entire
     *
-    * @param integer
-    * The tag name (by number) to access. Use the IMAGE_IPTC_* constants for this
-    * field value.
+    * @param mixed
+    * The tag name (by number or string) to access. For a list of possible string
+    * values look at the _lookupTag() method.
     *
     * @param integer
     * The block to reference. Most fields only have one block (the 0th block),
-    * but others, like the IMAGE_IPTC_KEYWORDS block, are an array. If you want
+    * but others, like the "keywords" block, are an array. If you want
     * to get the whole array, set this to a negative number like -1.
     *
+    * @see _lookupTag()
     * @access public
     */
-    function getTag( $nTagName, $nBlock = 0 )
+    function getTag( $xTag, $nBlock = 0 )
     {
-        $sTagName = sprintf('2#%03d', $nTagName);
+        $sTagName = $this->_lookupTag($xTag);
+
         if (is_array($this->_aIPTC[$sTagName])) {
 
             if ($nBlock < 0) {
@@ -238,6 +205,156 @@ class Image_IPTC
     }
 
     /**
+    * Return the numeric code of an IPTC field name
+    *
+    * @return integer
+    * Returns a numeric code corresponding to the name of the IPTC field that
+    * was supplied.
+    *
+    * @param string
+    * A field name representing the type of tag to return
+    *
+    * @access private
+    */
+    function _lookupTag( $sTag )
+    {
+        $nTag = -1;
+        $sTag = strtolower(str_replace(' ','_',$sTag));
+
+        switch($sTag) {
+
+          case 'object_name':
+             $nTag = 5;
+             break;
+
+          case 'edit_status':
+             $nTag = 7;
+             break;
+
+          case 'priority':
+             $nTag = 10;
+             break;
+
+          case 'category':
+             $nTag = 15;
+             break;
+
+          case 'supplementary_category':
+             $nTag = 20;
+             break;
+
+          case 'fixture_identifier':
+             $nTag = 22;
+             break;
+
+          case 'keywords':
+             $nTag = 25;
+             break;
+
+          case 'release_date':
+             $nTag = 30;
+             break;
+
+          case 'release_time':
+             $nTag = 35;
+             break;
+
+          case 'special_instructions':
+             $nTag = 40;
+             break;
+
+          case 'reference_service':
+             $nTag = 45;
+             break;
+
+          case 'reference_date':
+             $nTag = 47;
+             break;
+
+          case 'reference_number':
+             $nTag = 50;
+             break;
+
+          case 'created_date':
+             $nTag = 55;
+             break;
+
+          case 'originating_program':
+             $nTag = 64;
+             break;
+
+          case 'program_version':
+             $nTag = 70;
+             break;
+
+          case 'object_cycle':
+             $nTag = 75;
+             break;
+
+          case 'byline':
+             $nTag = 80;
+             break;
+
+          case 'byline_title':
+             $nTag = 85;
+             break;
+
+          case 'city':
+             $nTag = 90;
+             break;
+
+          case 'province_state':
+             $nTag = 95;
+             break;
+
+          case 'country_code':
+             $nTag = 100;
+             break;
+
+          case 'country':
+             $nTag = 101;
+             break;
+
+          case 'original_transmission_reference':
+             $nTag = 103;
+             break;
+
+          case 'headline':
+             $nTag = 105;
+             break;
+
+          case 'credit':
+             $nTag = 110;
+             break;
+
+          case 'source':
+             $nTag = 115;
+             break;
+
+          case 'copyright_string':
+             $nTag = 116;
+             break;
+
+          case 'caption':
+             $nTag = 120;
+             break;
+
+          case 'local_caption':
+             $nTag = 121;
+             break;
+
+        }
+
+        if ($nTag > 0) {
+
+           return sprintf('2#%03d', $nTag);
+
+        }
+
+        return 0;
+    }
+
+    /**
     * Generate an IPTC block from the current tags
     *
     * @return string
@@ -285,4 +402,3 @@ class Image_IPTC
 }
 
 ?>
-
