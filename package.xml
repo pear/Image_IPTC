@@ -20,13 +20,13 @@
 
  <release>
   <version>1.0.0</version>
-  <date>2003-05-04</date>
+  <date>2003-05-16</date>
   <state>stable</state>
   <notes>
    This is the first release.
   </notes>
   <filelist>
-   <dir name="/" baseinstalldir="XML">
+   <dir name="/" baseinstalldir="Image">
     <file role="php">IPTC.php</file>
    </dir>
   </filelist>
