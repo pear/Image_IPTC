@@ -1,0 +1,25 @@
+{
+    "authors": [
+        {
+            "email": "polone@townnews.com",
+            "name": "Patrick O'Lone",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "More info available on: http://pear.php.net/package/Image_IPTC",
+    "license": "PHP License",
+    "name": "pear/image_iptc",
+    "support": {
+        "issues": "http:///bugs/search.php?cmd=display&package_name[]=Image_IPTC",
+        "source": "https://github.com/pear/Image_IPTC"
+    },
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
