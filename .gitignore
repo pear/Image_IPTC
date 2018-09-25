@@ -1,4 +1,5 @@
 # composer related
+.project
 composer.lock
 composer.phar
 vendor
