@@ -1,34 +1,50 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-
-<package version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.10.5" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
  <name>Image_IPTC</name>
+ <channel>pear.php.net</channel>
  <summary>Extract, modify, and save IPTC data</summary>
- <description>
-  This package provides a mechanism for modifying IPTC header information. The class abstracts the functionality of iptcembed() and iptcparse() in addition to providing methods that properly handle replacing IPTC header fields back into image files.  
+ <description>This package provides a mechanism for modifying IPTC header information. The class abstracts
+the functionality of iptcembed() and iptcparse() in addition to providing methods that
+properly handle replacing IPTC header fields back into image files.  
  </description>
- <license>PHP License</license>
- <maintainers>
-  <maintainer>
-   <user>polone</user>
-   <name>Patrick O'Lone</name>
-   <email>polone@townnews.com</email>
-   <role>lead</role>
-  </maintainer>
- </maintainers>
-
- <release>
-  <version>1.0.2</version>
-  <date>2003-08-12</date>
-  <state>stable</state>
-  <notes>
-    Added a patch contributed by Pierre-Alain Joye which checks if the supplied tag to getTag() method is already set avoiding a possible E_NOTICE.
-  </notes>
-  <filelist>
-   <dir name="/" baseinstalldir="Image">
-    <file role="php">IPTC.php</file>
-   </dir>
-  </filelist>
- </release>
+ <lead>
+  <name>Patrick O&apos;Lone</name>
+  <user>polone</user>
+  <email>polone@townnews.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2018-09-25</date>
+ <time>11:25:11</time>
+ <version>
+  <release>1.0.3</release>
+  <api>1.0.3</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+Changed constructor to __construct() to avoid E_DEPRECATED notice. Switched scope of methods to be inline with PHPdoc.
+PHP 5 or greater is now required.
+ </notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="Image" name="IPTC.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
 </package>

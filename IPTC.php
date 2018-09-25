@@ -5,7 +5,7 @@
 /**
  * Photo IPTC interface
  *
- * PHP versions 4 and 5
+ * PHP versions 5 and 7
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -18,7 +18,6 @@
  * @author     Patrick O'Lone <polone@townnews.com>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: NITF.php,v 1.9 2005/03/21 18:07:19 polone Exp
  * @link       http://pear.php.net/package/Image_IPTC/
  */
 
@@ -32,7 +31,6 @@
 *
 * @author Patrick O'Lone <polone@townnews.com>
 * @copyright 2003-2004 TownNews.com
-* @version $Revision$
 */
 class Image_IPTC
 {
@@ -74,9 +72,8 @@ class Image_IPTC
     * @param string
     * The name of the image file to access and extract IPTC information from.
     *
-    * @access public
     */
-    function Image_IPTC( $sFilename )
+    public function __construct( $sFilename )
     {
         $this->_sFilename = $sFilename;
 
@@ -106,9 +103,8 @@ class Image_IPTC
     * Returns true if the getimagesize() function successfully extracted APP
     * information from the supplied file
     *
-    * @access public
     */
-    function isValid()
+    public function isValid()
     {
         return $this->_bIPTCParse;
     }
@@ -122,9 +118,8 @@ class Image_IPTC
      * @param mixed The field (by number or string) of the IPTC data you wish to update
      * @param mixed If the value supplied is scalar, then the block assigned will be set to the given value. If the value supplied is an array, then the entire tag will be given the value of the array.
      * @param integer The block to update. Most tags only use the 0th block, but certain tags, like the "keywords" tag, use a list of values. If set to a negative value, the entire tag block will be replaced by the value of the second parameter.
-     * @access public
      */
-    function setTag( $xTag, $xValue, $nBlock = 0 )
+    public function setTag( $xTag, $xValue, $nBlock = 0 )
     {
         $sTagName = $this->_lookupTag($xTag);
 
@@ -159,9 +154,8 @@ class Image_IPTC
     * to get the whole array, set this to a negative number like -1.
     *
     * @see _lookupTag()
-    * @access public
     */
-    function getTag( $xTag, $nBlock = 0 )
+    public function getTag( $xTag, $nBlock = 0 )
     {
         $sTagName = $this->_lookupTag($xTag);
 
@@ -193,9 +187,8 @@ class Image_IPTC
     * @return array
     * An array of IPTC fields as it extracted by the iptcparse() function
     *
-    * @access public
     */
-    function getAllTags()
+    public function getAllTags()
     {
         return $this->_aIPTC;
     }
@@ -212,9 +205,8 @@ class Image_IPTC
     * If supplied, the altered IPTC block and image data will be saved to another
     * file instead of the same file.
     *
-    * @access public
     */
-    function save( $sOutputFile = null )
+    public function save( $sOutputFile = null )
     {
         if (empty($sOutputFile)) {
 
@@ -244,9 +236,8 @@ class Image_IPTC
     /**
     * Embed IPTC data block and output to standard output
     *
-    * @access public
     */
-    function output()
+    public function output()
     {
         $sIPTCBlock = $this->_getIPTCBlock();
         @iptcembed($sIPTCBlock, $this->_sFilename, 2);
@@ -260,9 +251,8 @@ class Image_IPTC
      *
      * @param string A field name representing the type of tag to return
      * @return integer Returns a numeric code corresponding to the name of the IPTC field that was supplied.
-     * @access private
      */
-    function _lookupTag( $sTag )
+    private function _lookupTag( $sTag )
     {
         $nTag = -1;
         $sTag = strtolower(str_replace(' ','_',$sTag));
@@ -410,9 +400,8 @@ class Image_IPTC
     * Returns a binary string that contains the new IPTC block that can be used
     * in the iptcembed() function call
     *
-    * @access private
     */
-    function &_getIPTCBlock()
+    private function _getIPTCBlock()
     {
         $sIPTCBlock = null;
 
@@ -453,4 +442,4 @@ class Image_IPTC
 	
 }
 
-?>
+
